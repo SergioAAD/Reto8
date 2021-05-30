@@ -120,18 +120,6 @@ class Biblioteca():
         insert = Libros('', codigo, titulo, autor_id, editorial_id, '1')
         insert.insert_libros()
 
-    def data_libros_profesor(self):
-        self.choose_profesor()
-        profesor_id = input("> ")
-        self.choose_salon()
-        salon_id = input("> ")
-        self.choose_libros()
-        curso_id = input("> ")
-
-        insert = Salon(profesor_id, salon_id, curso_id)
-        insert.insert_salon()
-
-
     def data_update_libros(self):
         self.choose_libros()
         id = input("> ")
@@ -156,7 +144,6 @@ class Biblioteca():
         
         delete = Libros(id, '', '', '', '', '')
         delete.delete_libros()
-
 
     def salir(self):
         print('*** SISTEMA CERRADO ***')
