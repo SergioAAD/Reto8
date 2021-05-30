@@ -19,13 +19,54 @@ class Biblioteca():
             ''')
             opcion = input(">")
             if opcion =="1":
-                pass
+                self.view_lector()
             if opcion =="2":
                 pass
             if opcion =="3":
                 pass
             else:
                 self.salir()
+
+    def view_lector(self):
+        while True:
+            print('''
+                Escoga una opción:
+                1) Registrar nuevo lector
+                2) Lista de lectores
+                3) Modificar lector
+                4) Eliminar lector
+                5) Regresar
+                6) Salir\n
+            ''')
+            opcion = input(">")
+            if opcion =="1":
+                self.data_insert_lector()
+            if opcion =="2":
+                Lector.all_lectores("xx")
+            if opcion =="3":
+                pass
+            if opcion =="4":
+                pass
+            if opcion =="5":
+                pass
+            else:
+                self.salir()
+
+    def data_insert_lector(self):
+        print(''' INGRESAR DATOS DEL LECTOR:''')
+        print(''' NOMBRES: ''')
+        nombre = input("> ")
+        print(''' DNI: ''')
+        dni = input("> ")
+        print(''' CORREO: ''')
+        celular = input("> ")
+        print(''' CELULAR: ''')
+        correo = input("> ")
+        print(''' DOMICILIO: ''')
+        domicilio = input("> ")
+
+        insert = Lector('', nombre, dni, correo, celular, domicilio)
+        insert.insert_lector()   
 
 
     def salir(self):

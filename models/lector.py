@@ -2,9 +2,9 @@ import prettytable
 from helpers import *
 
 class Lector:
-    def __init__(self, id="", nombres="", dni="", correo="", celular="", domicilio=""):
+    def __init__(self, id="", nombre="", dni="", correo="", celular="", domicilio=""):
         self.id = id
-        self.nombres = nombres
+        self.nombre = nombre
         self.dni = dni
         self.correo = correo
         self.celular = celular
@@ -35,10 +35,24 @@ class Lector:
             records = conn.select([])
             p = prettytable()
             print("-- LISTA DE LECTORES --".center(80))
-            p.field_names = ["ID", "Nombres", "DNI", "Correo", "Domicilio"]
+            p.field_names = ["ID", "Nombres", "DNI", "Correo", "Celular", "Domicilio"]
 
             for record in records:
-                p.add_row([record[0], record[1], record[2], record[3], record[4], record[5], record[6]])
+                p.add_row([record[0], record[1], record[2], record[3], record[4], record[5]])
             print(p)
         except Exception as e:
             print(e)
+        
+    def insert_lector(self):
+        try:
+            conn = Connection('lector')
+            conn.insert({
+                'nombre': self.nombre,
+                'dni': self.dni,
+                'correo': self.correo,
+                'celular': self.celular,
+                'domicilio': self.domicilio
+            })
+            print(f'Se registro el lector: {self.nombre} con el dni {self.dni}, correo {self.correo}, celular {self.celular}, y domicilio {self.domicilio}')
+        except Exception as e:
+            print(e)    
