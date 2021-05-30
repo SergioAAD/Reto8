@@ -1,3 +1,4 @@
+import prettytable
 from helpers import *
 
 class Lector:
@@ -22,9 +23,22 @@ class Lector:
                         domicilio character varying(25) NOT NULL
                     );
             '''
-
             conn.execute_query(query)
             conn.commit()
         except Exception as e:
             conn.rollback()
+            print(e)
+
+    def all_lectores(self):
+        try:
+            conn = Connection('lector')
+            records = conn.select([])
+            p = prettytable()
+            print("-- LISTA DE LECTORES --".center(80))
+            p.field_names = ["ID", "Nombres", "DNI", "Correo", "Domicilio"]
+
+            for record in records:
+                p.add_row([record[0], record[1], record[2], record[3], record[4], record[5], record[6]])
+            print(p)
+        except Exception as e:
             print(e)
