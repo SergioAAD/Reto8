@@ -1,9 +1,9 @@
-
 from config.connection import Connection
 from models.autor import Autor
 from models.editorial import Editorial
 from models.lector import Lector
 from models.libro import Libros
+from models.prestamos import Prestamos
 
 
 class Biblioteca():
@@ -28,12 +28,10 @@ class Biblioteca():
                 self.view_autores()
             elif opcion == "3":
                 self.view_editoriales()
-            elif opcion == "4":
-                pass
-            elif opcion == "5":
-                pass
-            if opcion =="4":
+            elif opcion =="4":
                 self.view_libros()
+            elif opcion == "5":
+                self.view_prestamos()
             if opcion =="5":
                 pass
             else:
@@ -294,5 +292,99 @@ class Biblioteca():
     def salir(self):
         print('*** SISTEMA CERRADO ***')
         exit()
+
+# Prestamos
+
+    def view_prestamos(self):
+        while True:
+            print('''
+                Escoga una opción:
+                1) Crear Nuevo
+                2) Modificar Prestamo
+                3) Eliminar Prestamo
+                4) Devoluciones
+                5) Regresar
+                6) Salir\n
+            ''')
+            opcion = input("> ")
+            if opcion == "1":
+                self.add_prestamos()
+            elif opcion == "2":
+                self.data_update_prestamos()
+            elif opcion == "3":
+                self.data_delete_prestamos()
+            elif opcion == "5":
+                self.view_principal()
+            elif opcion == '4':
+                self.data_devoluciones()
+            else:
+                self.salir()
+
+    def choose_prestamos(self):
+        Prestamos.all_prestamos("xx")
+        print('''ESCOGER ID DEL LIBRO:''')
+    
+    def add_prestamos(self):
+        print(''' INGRESAR LECTOR ID:''')
+        lector_id = input("> ")
+        print(''' INGRESAR LIBRO ID:''')
+        libro_id = input("> ")
+        print(''' INGRESAR FECHAINICIAL:''')
+        fechainicial = input("> ")
+        print(''' INGRESAR DIAS PRESTAMOS:''')
+        dias_prestamo = input("> ")
+        print(''' INGRESAR FECHA DEV PROGRAMADA:''')
+        fechadev_prog = input("> ")
+        
+        insert = Prestamos('', lector_id, libro_id, fechainicial, dias_prestamo, fechadev_prog, '1900-01-01')
+        insert.insert_prestamos()
+
+        update = Prestamos(libro_id, '', '', '', '', '', '', '0')
+        update.update_state_libro()
+
+    def data_update_prestamos(self):
+        self.choose_prestamos()
+        id = input("> ")
+
+        print(''' INGRESAR LECTOR ID:''')
+        lector_id = input("> ")
+        print(''' INGRESAR LIBRO ID:''')
+        libro_id = input("> ")
+        print(''' INGRESAR FECHAINICIAL:''')
+        fechainicial = input("> ")
+        print(''' INGRESAR DIAS PRESTAMOS:''')
+        dias_prestamo = input("> ")
+        print(''' INGRESAR FECHA DEV PROGRAMADA:''')
+        fechadev_prog = input("> ")
+        print(''' INGRESAR FECHA DEV REAL:''')
+        fechadev_real = input("> ")
+
+        update = Prestamos(id, lector_id, libro_id, fechainicial, dias_prestamo, fechadev_prog, fechadev_real)
+        update.update_prestamos()
+
+    def data_delete_prestamos(self):
+        self.choose_prestamos()
+        id = input("> ")
+        
+        delete = Prestamos(id, '', '', '', '', '', '')
+        delete.delete_prestamos()
+
+    def data_devoluciones(self):
+        self.choose_prestamos()
+        id = input("> ")
+
+        print(''' INGRESAR FECHA ENTREGA REAL:''')
+        fechadev_real = input("> ")
+
+        update = Prestamos(id, fechadev_real)
+        update.update_prestamos()
+
+        update = Prestamos(id, '', '', '', '', '', '', '1')
+        update.update_state_libro()
+
+    def salir(self):
+        print('*** SISTEMA CERRADO ***')
+        exit()
+
 
 Biblioteca()
