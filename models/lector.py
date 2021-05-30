@@ -1,4 +1,4 @@
-import prettytable
+
 from helpers import *
 
 class Lector:
@@ -14,14 +14,14 @@ class Lector:
         try:
             conn = Connection()
             query = ''''
-                    CREATE TABLE IF NOT EXIST lector(
-                        id SERIAL PRIMARY KEY NOT NULL,
-                        nombre character varying(50) NOT NULL,
-                        dni character varying(8) NOT NULL
-                        correo character varying(25) NOT NULL
-                        celular character varying(9) NOT NULL
-                        domicilio character varying(25) NOT NULL
-                    );
+                CREATE TABLE IF NOT EXISTS lector(
+                    id SERIAL PRIMARY KEY NOT NULL,
+                    nombre character varying(50) NOT NULL,
+                    dni character varying(8) NOT NULL,
+                    correo character varying(25) NOT NULL,
+                    celular character varying(9) NOT NULL,
+                    domicilio character varying(25) NOT NULL,
+                );
             '''
             conn.execute_query(query)
             conn.commit()
@@ -33,7 +33,7 @@ class Lector:
         try:
             conn = Connection('lector')
             records = conn.select([])
-            p = prettytable()
+            p = PrettyTable()
             print("-- LISTA DE LECTORES --".center(80))
             p.field_names = ["ID", "Nombres", "DNI", "Correo", "Celular", "Domicilio"]
 

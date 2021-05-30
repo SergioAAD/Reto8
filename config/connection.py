@@ -9,7 +9,7 @@ class Connection:
 
     def execute_query(self, query):
         self.cursor.execute(query)
-        return self.cursor
+        self.commit()
     
     def select(self, data=[]): # lista
         fields = ", ".join(data)
