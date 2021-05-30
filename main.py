@@ -5,6 +5,7 @@ from models.editorial import Editorial
 from models.lector import Lector
 from models.libro import Libros
 
+
 class Biblioteca():
     def __init__(self):
         self.view_principal()
@@ -24,9 +25,9 @@ class Biblioteca():
             if opcion == "1":
                 self.view_lector()
             elif opcion == "2":
-                pass
+                self.view_autores()
             elif opcion == "3":
-                pass
+                self.view_editoriales()
             elif opcion == "4":
                 pass
             elif opcion == "5":
@@ -37,6 +38,8 @@ class Biblioteca():
                 pass
             else:
                 self.salir()
+
+#Lector
 
     def view_lector(self):
         while True:
@@ -55,11 +58,11 @@ class Biblioteca():
             elif opcion == "2":
                 Lector.all_lectores("xx")
             elif opcion == "3":
-                pass
+                self.data_update_lector()
             elif opcion == "4":
-                pass
+                self.data_delete_lector()
             elif opcion == "5":
-                pass
+                self.view_principal()
             else:
                 self.salir()
 
@@ -78,6 +81,149 @@ class Biblioteca():
 
         insert = Lector('', nombre, dni, correo, celular, domicilio)
         insert.insert_lector()   
+
+    def choose_lector(self):
+        Lector.all_lectores("xx")
+        print('''ESCOGER ID DE ALUMNOS:''')
+
+    def data_update_lector(self):
+        self.choose_lector()
+        id = input("> ")
+
+        print(''' INGRESAR DATOS DEL LECTOR:''')
+        print(''' NOMBRES: ''')
+        nombre = input("> ")
+        print(''' DNI: ''')
+        dni = input("> ")
+        print(''' CORREO: ''')
+        correo = input("> ")
+        print(''' CELULAR: ''')
+        celular = input("> ")
+        print(''' DOMICILIO: ''')
+        domicilio = input("> ")
+
+        update = Lector(id, nombre, dni, correo, celular, domicilio)
+        update.update_lector()
+
+    def data_delete_lector(self):
+        self.choose_lector()
+        id = input("> ")
+
+        delete = Lector(id)
+        delete.delete_lector()
+
+#Autores
+
+    def view_autores(self):
+        while True:
+            print('''
+                Escoga una opción:
+                1) Registrar nuevo autor
+                2) Lista de autores
+                3) Modificar autor
+                4) Eliminar autor
+                5) Regresar
+                6) Salir\n
+            ''')
+            opcion = input(">")
+            if opcion == "1":
+                self.data_insert_autor()
+            elif opcion == "2":
+                Autor.all_autores("xx")
+            elif opcion == "3":
+                self.data_update_autor()
+            elif opcion == "4":
+                self.data_delete_autor()
+            elif opcion == "5":
+                self.view_principal()
+            else:
+                self.salir()
+
+    def data_insert_autor(self):
+        print(''' INGRESAR DATOS DEL AUTOR:''')
+        print(''' NOMBRE: ''')
+        nombre = input("> ")
+
+        insert = Autor('', nombre)
+        insert.insert_autor()   
+
+    def choose_autor(self):
+        Autor.all_autores("xx")
+        print('''ESCOGER ID DEL AUTOR:''')
+
+    def data_update_autor(self):
+        self.choose_autor()
+        id = input("> ")
+
+        print(''' INGRESAR DATOS DEL AUTOR:''')
+        print(''' NOMBRES: ''')
+        nombre = input("> ")
+
+        update = Autor(id, nombre)
+        update.update_autor()
+
+    def data_delete_autor(self):
+        self.choose_autor()
+        id = input("> ")
+
+        delete = Autor(id,"")
+        delete.delete_autor()
+
+#Editoriales
+    def view_editoriales(self):
+        while True:
+            print('''
+                Escoga una opción:
+                1) Registrar nueva editorial
+                2) Lista de editoriales
+                3) Modificar editorial
+                4) Eliminar editorial
+                5) Regresar
+                6) Salir\n
+            ''')
+            opcion = input(">")
+            if opcion == "1":
+                self.data_insert_editorial()
+            elif opcion == "2":
+                Editorial.all_editoriales("xx")
+            elif opcion == "3":
+                self.data_update_editorial()
+            elif opcion == "4":
+                self.data_delete_editorial()
+            elif opcion == "5":
+                self.view_principal()
+            else:
+                self.salir()
+
+    def data_insert_editorial(self):
+        print(''' INGRESAR DATOS DE LA EDITORIAL:''')
+        print(''' NOMBRE: ''')
+        nombre = input("> ")
+
+        insert = Editorial('', nombre)
+        insert.insert_editorial()   
+
+    def choose_editorial(self):
+        Editorial.all_editoriales("xx")
+        print('''ESCOGER ID DE LA EDITORIAL:''')
+
+    def data_update_editorial(self):
+        self.choose_editorial()
+        id = input("> ")
+
+        print(''' INGRESAR DATOS DE LA EDITORIAL:''')
+        print(''' NOMBRES: ''')
+        nombre = input("> ")
+
+        update = Editorial(id, nombre)
+        update.update_editorial()
+
+    def data_delete_editorial(self):
+        self.choose_editorial()
+        id = input("> ")
+
+        delete = Editorial(id,"")
+        delete.delete_editorial()
 
 # Libros
 

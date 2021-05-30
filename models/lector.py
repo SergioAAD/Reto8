@@ -66,7 +66,7 @@ class Lector:
             conn.update({
                 'id' : self.id
             },{
-                'nombres': self.nombre,
+                'nombre': self.nombre,
                 'dni': self.dni,
                 'correo': self.correo,
                 'celular': self.celular,

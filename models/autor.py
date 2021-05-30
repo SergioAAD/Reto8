@@ -8,7 +8,7 @@ class Autor:
 
     def create_table(self):
         try:
-            conn = Connection()
+            conn = Connection('autor')
             query = '''
                 CREATE TABLE IF NOT EXISTS autor(
                     id SERIAL PRIMARY KEY NOT NULL,
@@ -31,13 +31,23 @@ class Autor:
         except Exception as e:
             print(e)
 
+    def insert_autor(self):
+        try:
+            conn = Connection('autor')
+            conn.insert({
+                'nombre': self.nombre
+            })
+            print(f'Se registro el lector: {self.nombre}')
+        except Exception as e:
+            print(e)
+
     def update_autor(self):
         try:
             conn = Connection('autor')
             conn.update({
                 'id' : self.id
             },{
-                'nombres': self.nombre,
+                'nombre': self.nombre,
             })
             print(f'Se modifico el editorial: {self.nombre}')
         except Exception as e:

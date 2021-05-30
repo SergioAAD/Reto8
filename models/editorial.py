@@ -2,13 +2,14 @@ from helpers import *
 
 class Editorial:
     def __init__(self, id, nombre):
+        self.create_table()
         self.id = id
         self.nombre = nombre
-        self.create_table()
+        
 
     def create_table(self):
         try:
-            conn = Connection()
+            conn = Connection('editorial')
             query = '''
                 CREATE TABLE IF NOT EXISTS editorial(
                     id SERIAL PRIMARY KEY NOT NULL,
@@ -31,13 +32,23 @@ class Editorial:
         except Exception as e:
             print(e)
 
+    def insert_editorial(self):
+        try:
+            conn = Connection('editorial')
+            conn.insert({
+                'nombre': self.nombre
+            })
+            print(f'Se registro la editorial: {self.nombre}')
+        except Exception as e:
+            print(e)
+
     def update_editorial(self):
         try:
             conn = Connection('editorial')
             conn.update({
                 'id' : self.id
             },{
-                'nombres': self.nombre,
+                'nombre': self.nombre,
             })
             print(f'Se modifico el editorial: {self.nombre}')
         except Exception as e:
