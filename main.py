@@ -17,15 +17,19 @@ class Biblioteca():
                 2)Ver autores
                 3)Ver editoriales
                 4)Ver libros
-                5)Ver prestamos
+                5)Ver préstamos
                 6)Salir\n    
             ''')
             opcion = input(">")
-            if opcion =="1":
+            if opcion == "1":
                 self.view_lector()
-            if opcion =="2":
+            elif opcion == "2":
                 pass
-            if opcion =="3":
+            elif opcion == "3":
+                pass
+            elif opcion == "4":
+                pass
+            elif opcion == "5":
                 pass
             if opcion =="4":
                 self.view_libros()
@@ -46,15 +50,15 @@ class Biblioteca():
                 6) Salir\n
             ''')
             opcion = input(">")
-            if opcion =="1":
+            if opcion == "1":
                 self.data_insert_lector()
-            if opcion =="2":
+            elif opcion == "2":
                 Lector.all_lectores("xx")
-            if opcion =="3":
+            elif opcion == "3":
                 pass
-            if opcion =="4":
+            elif opcion == "4":
                 pass
-            if opcion =="5":
+            elif opcion == "5":
                 pass
             else:
                 self.salir()
