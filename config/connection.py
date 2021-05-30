@@ -35,6 +35,44 @@ class Connection:
         self.execute_query(query)
         return True
 
+    def update(self, id_object, data):
+        list_where = []
+        for field_name, field_value in id_object.items():
+            if isinstance(field_value, str):
+                field_value = f"'{field_value}'"
+            list_where.append(f"{field_name}={field_value}")
+        
+        list_update = []
+        for field_name, field_value in data.items():
+            if isinstance(field_value, str):
+                field_value = f"'{field_value}'"
+            list_update.append(f"{field_name}={field_value}")
+            
+        query = f'''
+            UPDATE {self.table_name} SET {', '.join(list_update)}
+            WHERE {' AND '.join(list_where)}
+        '''
+        self.execute_query(query)
+        return True
+
+    def delete(self, id_object):
+        list_where = []
+        for field_name, field_value in id_object.items():
+            if isinstance(field_value, str):
+                field_value = f"'{field_value}'"
+            list_where.append(f"{field_name}={field_value}")
+
+        query = f'''
+            DELETE FROM {self.table_name} WHERE {' AND '.join(list_where)}
+        '''
+        query_refresh = f'''
+            ALTER TABLE {self.table_name} ALTER COLUMN id SET DEFAULT {(self.count_total()) + 1}
+        '''
+        
+        self.execute_query(query)
+        self.execute_query(query_refresh)
+        return True
+
     def commit(self):
         self.db.commit()
         return True
